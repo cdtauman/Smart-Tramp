@@ -5,13 +5,22 @@ export async function getPolyline(origin: string, destination: string): Promise<
 
   const url = `${base}?origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}&key=${apiKey}`
 
-  const response = await fetch(url)
-  const data = await response.json()
+  try {
+    const response = await fetch(url)
+    if (!response.ok) {
+      console.error('Directions request failed', response.statusText)
+      return null
+    }
 
-  if (data.routes && data.routes.length > 0) {
-    return data.routes[0].overview_polyline.points
+    const data = await response.json()
+
+    if (data.routes && data.routes.length > 0) {
+      return data.routes[0].overview_polyline.points
+    }
+
+    console.error('No route found', data)
+  } catch (err) {
+    console.error('Failed to fetch polyline', err)
   }
-
-  console.error('No route found', data)
   return null
 }

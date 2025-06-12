@@ -2,5 +2,9 @@
   "dependencies": {
     "@mapbox/polyline": "^1.2.1",
     "geolib": "^3.3.4"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6"
   }
 }

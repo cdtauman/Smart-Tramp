@@ -14,7 +14,7 @@ export default function App() {
         <Route path="/driver" element={<RideCreationForm />} />
         <Route path="/thank-you" element={<ThankYouPage />} />
         <Route path="/status" element={<PassengerStatus />} />
-        <Route path="/dashboard" element={<DriverDashboard driverId="example-id" />} />
+        <Route path="/dashboard/:driverId" element={<DriverDashboard />} />
       </Routes>
     </BrowserRouter>
   )

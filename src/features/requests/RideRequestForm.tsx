@@ -3,8 +3,18 @@ import { useState } from 'react'
 import { supabase } from '@/lib/supabaseClient'
 import ThankYouPage from './ThankYouPage'
 
+interface RequestFormState {
+  name: string
+  phone: string
+  origin: string
+  destination: string
+  datetime: string
+  femaleOnly: boolean
+  showPhone: boolean
+}
+
 export default function RideRequestForm() {
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<RequestFormState>({
     name: '',
     phone: '',
     origin: '',
@@ -25,11 +35,19 @@ export default function RideRequestForm() {
   const geocode = async (address: string): Promise<{ lat: number; lng: number } | null> => {
     const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
     const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`
-    const res = await fetch(url)
-    const data = await res.json()
-    if (data.results && data.results.length > 0) {
-      const loc = data.results[0].geometry.location
-      return { lat: loc.lat, lng: loc.lng }
+    try {
+      const res = await fetch(url)
+      if (!res.ok) {
+        console.error('Geocode failed', res.statusText)
+        return null
+      }
+      const data = await res.json()
+      if (data.results && data.results.length > 0) {
+        const loc = data.results[0].geometry.location
+        return { lat: loc.lat, lng: loc.lng }
+      }
+    } catch (err) {
+      console.error('Geocode error', err)
     }
     return null
   }

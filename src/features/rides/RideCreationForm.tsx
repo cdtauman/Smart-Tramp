@@ -3,8 +3,19 @@ import { useState } from 'react'
 import { supabase } from '@/lib/supabaseClient'
 import { getPolyline } from '@/lib/getPolyline'
 
+interface RideFormState {
+  name: string
+  phone: string
+  origin: string
+  destination: string
+  datetime: string
+  seats: number
+  showPhone: boolean
+  femaleOnly: boolean
+}
+
 export default function RideCreationForm() {
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<RideFormState>({
     name: '',
     phone: '',
     origin: '',
