@@ -14,9 +14,11 @@ const centerFallback = {
 
 export default function DriverMap({ polyline, pickupPoints = [] }: {
   polyline: string,
-  pickupPoints?: { lat: number, lng: number }[]
+  pickupPoints?: { lat: number; lng: number }[]
 }) {
-  const decodedPath = polylineDecode.decode(polyline).map(([lat, lng]) => ({ lat, lng }))
+  const decodedPath = polylineDecode.decode(polyline).map(
+    ([lat, lng]: [number, number]) => ({ lat, lng })
+  )
   const center = decodedPath[Math.floor(decodedPath.length / 2)] || centerFallback
 
   return (

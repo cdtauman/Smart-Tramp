@@ -1,10 +1,29 @@
 {
+  "name": "smart-tramp",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
   "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.2",
+    "@supabase/supabase-js": "^2.39.4",
+    "@react-google-maps/api": "^2.19.1",
     "@mapbox/polyline": "^1.2.1",
     "geolib": "^3.3.4"
   },
   "devDependencies": {
+    "typescript": "^5.4.2",
+    "vite": "^5.0.12",
+    "@vitejs/plugin-react": "^4.2.0",
     "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6"
+    "@types/react-dom": "^19.1.6",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/mapbox__polyline": "^1.1.2"
   }
 }

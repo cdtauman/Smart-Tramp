@@ -1,9 +1,10 @@
 // src/features/rides/RideCard.tsx
 import { useEffect, useState } from 'react'
 import DriverMap from '@/components/DriverMap'
+import type { RideWithMatches } from '@/types'
 
 interface RideCardProps {
-  ride: any
+  ride: RideWithMatches
   onApprove: (id: string) => void
   onIgnore: (id: string) => void
 }
@@ -13,12 +14,10 @@ export default function RideCard({ ride, onApprove, onIgnore }: RideCardProps) {
 
   useEffect(() => {
     const loadPickupPoints = async () => {
-      const results: { lat: number; lng: number }[] = []
-      for (const m of ride.matches || []) {
-        const loc = await geocodeAddress(m.requests.origin)
-        if (loc) results.push(loc)
-      }
-      setPickupPoints(results)
+      const results = await Promise.all(
+        (ride.matches || []).map(m => geocodeAddress(m.requests.origin))
+      )
+      setPickupPoints(results.filter(Boolean) as { lat: number; lng: number }[])
     }
     loadPickupPoints()
   }, [ride.id])
@@ -56,7 +55,7 @@ export default function RideCard({ ride, onApprove, onIgnore }: RideCardProps) {
       {(!ride.matches || ride.matches.length === 0) && <p>אין התאמות כרגע.</p>}
 
       <ul className="space-y-3">
-        {ride.matches?.map((m: any) => {
+        {ride.matches?.map((m: RideWithMatches['matches'][number]) => {
           const req = m.requests
           const user = req.users
           return (

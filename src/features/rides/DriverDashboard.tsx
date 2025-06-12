@@ -3,10 +3,11 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { supabase } from '@/lib/supabaseClient'
 import RideCard from './RideCard'
+import type { RideWithMatches } from '@/types'
 
 export default function DriverDashboard() {
-  const { driverId } = useParams<{ driverId: string }>()
-  const [rides, setRides] = useState<any[]>([])
+  const { driverId } = useParams() as { driverId?: string }
+  const [rides, setRides] = useState<RideWithMatches[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -55,7 +56,7 @@ export default function DriverDashboard() {
       setRides(prev =>
         prev.map(ride => ({
           ...ride,
-          matches: ride.matches.map(m =>
+          matches: ride.matches.map((m: RideWithMatches['matches'][number]) =>
             m.requests.id === requestId
               ? { ...m, requests: { ...m.requests, status: 'matched' } }
               : m
@@ -78,7 +79,9 @@ export default function DriverDashboard() {
       setRides(prev =>
         prev.map(ride => ({
           ...ride,
-          matches: ride.matches.filter(m => m.requests.id !== requestId)
+          matches: ride.matches.filter(
+            (m: RideWithMatches['matches'][number]) => m.requests.id !== requestId
+          )        
         }))
       )
     }

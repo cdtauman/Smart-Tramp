@@ -1,9 +1,10 @@
 // src/features/requests/PassengerStatus.tsx
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabaseClient'
+import type { Request } from '@/types'
 
 export default function PassengerStatus({ phone }: { phone: string }) {
-  const [requests, setRequests] = useState<any[]>([])
+  const [requests, setRequests] = useState<Request[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
