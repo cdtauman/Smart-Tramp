@@ -1,0 +1,17 @@
+// src/lib/getPolyline.ts
+export async function getPolyline(origin: string, destination: string): Promise<string | null> {
+  const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+  const base = 'https://maps.googleapis.com/maps/api/directions/json'
+
+  const url = `${base}?origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}&key=${apiKey}`
+
+  const response = await fetch(url)
+  const data = await response.json()
+
+  if (data.routes && data.routes.length > 0) {
+    return data.routes[0].overview_polyline.points
+  }
+
+  console.error('No route found', data)
+  return null
+}

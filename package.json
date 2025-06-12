@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@mapbox/polyline": "^1.2.1",
+    "geolib": "^3.3.4"
+  }
+}
