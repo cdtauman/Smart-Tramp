@@ -1,6 +1,8 @@
 // src/lib/getPolyline.ts
+import { GOOGLE_MAPS_API_KEY } from './env'
+
 export async function getPolyline(origin: string, destination: string): Promise<string | null> {
-  const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+  const apiKey = GOOGLE_MAPS_API_KEY
   const base = 'https://maps.googleapis.com/maps/api/directions/json'
 
   const url = `${base}?origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}&key=${apiKey}`

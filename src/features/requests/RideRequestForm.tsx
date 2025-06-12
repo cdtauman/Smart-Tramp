@@ -1,6 +1,7 @@
 // src/features/requests/RideRequestForm.tsx
 import { useState } from 'react'
 import { supabase } from '@/lib/supabaseClient'
+import { GOOGLE_MAPS_API_KEY } from '@/lib/env'
 import ThankYouPage from './ThankYouPage'
 
 interface RequestFormState {
@@ -33,7 +34,7 @@ export default function RideRequestForm() {
   }
 
   const geocode = async (address: string): Promise<{ lat: number; lng: number } | null> => {
-    const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+    const apiKey = GOOGLE_MAPS_API_KEY
     const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`
     try {
       const res = await fetch(url)

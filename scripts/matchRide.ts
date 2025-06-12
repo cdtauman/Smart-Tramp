@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { matchRequestsToRide } from '../src/lib/matchRequestsToRide'
 
 declare const process: {

@@ -19,3 +19,20 @@ npm run typecheck
 ```
 
 The SQL schema used by Supabase is located in `supabase.sql`.
+
+### Testing
+
+Run the unit tests with:
+
+```bash
+npm test
+```
+
+### Matching Requests
+
+After creating rides and requests in the database you can run the matching
+algorithm from the command line:
+
+```bash
+npm run match-ride <rideId>
+```

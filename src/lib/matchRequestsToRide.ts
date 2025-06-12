@@ -34,7 +34,7 @@ export async function matchRequestsToRide(rideId: string): Promise<Match[]> {
 
   if (reqError || !requests) {
     console.error('Failed to fetch requests', reqError)
-    return
+    return []
   }
 
   const matches: Match[] = []
@@ -58,7 +58,7 @@ export async function matchRequestsToRide(rideId: string): Promise<Match[]> {
     }
 
     // בדיקת קרבה למסלול
-       const pickupIndex = routePoints.findIndex((p: { latitude: number; longitude: number }) =>
+    const pickupIndex = routePoints.findIndex((p: { latitude: number; longitude: number }) =>
       getDistance(p, pickupPoint) <= MAX_PICKUP_DISTANCE_METERS
     )
     const dropoffIndex = routePoints.findIndex((p: { latitude: number; longitude: number }) =>

@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import DriverMap from '@/components/DriverMap'
 import type { RideWithMatches } from '@/types'
+import { GOOGLE_MAPS_API_KEY } from '@/lib/env'
 
 interface RideCardProps {
   ride: RideWithMatches
@@ -23,7 +24,7 @@ export default function RideCard({ ride, onApprove, onIgnore }: RideCardProps) {
   }, [ride.id])
 
   const geocodeAddress = async (address: string): Promise<{ lat: number; lng: number } | null> => {
-    const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+    const apiKey = GOOGLE_MAPS_API_KEY
     try {
       const res = await fetch(
         `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`

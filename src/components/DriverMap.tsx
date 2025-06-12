@@ -22,7 +22,7 @@ export default function DriverMap({ polyline, pickupPoints = [] }: {
   const center = decodedPath[Math.floor(decodedPath.length / 2)] || centerFallback
 
   return (
-    <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
+    <LoadScript googleMapsApiKey={GOOGLE_MAPS_API_KEY}>
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10}>
         <Polyline
           path={decodedPath}
